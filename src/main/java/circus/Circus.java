@@ -1,13 +1,18 @@
 package circus;
 
-import circus.animal.*;
-import circus.stuff.Equipment;
+import circus.stuff.Cage;
 import circus.stuff.Cannon;
+import circus.stuff.Equipment;
 import circus.stuff.Ladder;
+
+import circus.animal.Animal;
+import circus.animal.Duck;
+import circus.animal.Elephant;
+import circus.animal.Parrot;
+import circus.animal.Tiger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 
 public class Circus {
     private static Animal[] animals = {
@@ -42,14 +47,6 @@ public class Circus {
     }
 
     public static void main(String[] args) {
-//        System.out.println("Number of animals: " + animals.length);
-//
-//        for (Animal a : animals) {
-//            System.out.println(a);
-//        }
-
-//        animals[3] = new Elephant("Strong one");
-
         ArrayList<Animal> animalArrayList = new ArrayList<>(Arrays.asList(animals));
 
         System.out.println("Number of animals in circus (AL): " + animalArrayList.size());
@@ -77,9 +74,20 @@ public class Circus {
 
         Animal candidate = findAnimal(animalArrayList, "Polly");
 
-//        makeAnimalsTalk();
-//        System.out.println("Total value of animals " + calculateAssetValue(animals));
-//        System.out.println("Total value of equipments " + calculateAssetValue(equipments));
+        Cage<Duck> duckCage = new Cage<>();
+        Duck duck = new Duck("Louie");
+        duckCage.lockUp(duck);
+        Parrot parrot = new Parrot("blu");
+        Cage<Parrot> parrotCage = new Cage<>();
+        parrotCage.lockUp(parrot);
+
+        ArrayList<Cage> cages = new ArrayList<>();
+        cages.add(duckCage);
+        cages.add(parrotCage);
+
+        for (Cage c : cages) {
+            c.release();
+        }
     }
 
     private static void printAllAnimals(ArrayList<Animal> animalArrayList) {
@@ -94,7 +102,7 @@ public class Circus {
 
     private static Animal findAnimal(ArrayList<Animal> animalArraylist, String name) {
         for (Animal a : animals) {
-            if (a.name == name){
+            if (a.name == name) {
                 return a;
             }
         }
